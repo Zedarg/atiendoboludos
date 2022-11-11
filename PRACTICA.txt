@@ -1,0 +1,4 @@
+Repasar:
+- Crear una página con formulario que agregue elementos a un array
+- Crear una página que muestre el listado de los elementos
+

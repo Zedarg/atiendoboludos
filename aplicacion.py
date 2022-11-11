@@ -8,6 +8,18 @@ import random
 
 app = Flask(__name__)
 
+# el orden importa!
+# al ser importada desde el archivo users.py,
+# esta lista tiene que existir antes de que se importe users.py
+user_list = [{
+    "id": 1,
+    "name": "John",
+    "lastname": "Doe",
+    "email": "johndoe@tuvieja.com"
+}]
+
+from modules import users
+
 AREA_FINANZAS = 'FINANZAS'
 AREA_ATENCIONALCLIENTE = 'ATENCION AL CLIENTE'
 
@@ -17,32 +29,31 @@ ESTADO_FINALIZADO = 'FINALIZADO'
 
 
 ticket_list = []
+user_list = []
 
-
-@app.route("/", methods=['GET', 'POST'])
+@app.get("/")
 def index():
-    print("metodo: " + request.method)
-    if (request.method == 'GET'):
-        return render_template("/tickets/ticket_new.html")
-    elif (request.method == 'POST'):
-        nuevo_ticket = {
-            'id': random.randrange(0, 1000),
-            'fecha': datetime.datetime.now(),
-            'nombre': request.form["nombre"],
-            'apellido': request.form["apellido"],
-            'area': request.form["area"],
-            'descripcion': request.form["descripcion"],
-            'estado': ESTADO_EN_ESPERA,
-            'devolucion': ''
-        }
-        ticket_list.append(nuevo_ticket)
-        return f'''
+    return render_template("/tickets/ticket_new.html")
+
+@app.post("/")
+def ticket_new():
+    nuevo_ticket = {
+        'id': random.randrange(0, 1000),
+        'fecha': datetime.datetime.now(),
+        'nombre': request.form["nombre"],
+        'apellido': request.form["apellido"],
+        'email': request.form["email"],
+        'area': request.form["area"],
+        'descripcion': request.form["descripcion"],
+        'estado': ESTADO_EN_ESPERA,
+        'devolucion': ''
+    }
+    ticket_list.append(nuevo_ticket)
+    return f'''
             <h1>El ticket se ha creado correctamente</h1>
             <p>Ticket Nro: {str(nuevo_ticket["id"])}</p>
             <a href="/">Volver</a>
         '''
-        # return "Gracias por su ticket, su numero es: " + str(nuevo_ticket["id"])
-
 
 @app.route("/admin/tickets")
 def tickets():
@@ -60,6 +71,14 @@ def ticket_detail(id):
             break
     return render_template("/tickets/ticket_detail.html", ticket=ticket_encontrado)
 
+
+# cerrar ticket
+# @app.post("/admin/tickets/<int:id>/close")
+# def ticket_close(id):
+    # buscar el ticket a modificar en el listado
+    # modificar el estado del ticket
+    # guardar el ticket modificado
+    # redirigir a la lista de tickets
 
 @app.route("/admin/")
 def admin():

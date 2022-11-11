@@ -1,0 +1,16 @@
+- mostrar una web estatica [x]
+- mostrar una web con lista [x]
+- mostrar un formulario y que agregue a un listado en la memoria [x]
+- subir el proyecto a github [x]
+- agregar la capacidad de actualizar un elemento de la lista [ ]
+- agregar la capacidad de eliminar un elemento de la lista [ ] (ponerlo como eliminado o done)
+
+- poder separar funcionalidad en archivos [ ]
+
+- instalar una base de datos [ ]
+- crear una tabla [ ]
+- agregar registros en una tabla [ ]
+
+- aprender sentencias SQL [ ]
+
+- aprender a agregar paginacion [ ]

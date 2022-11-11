@@ -32,3 +32,14 @@ pip install Flask
 flask --app (nombrearchivo) run
 // ejecutar aplicacion modo debug (recarga en guardado)
 flask --app (nombrearchivo) --debug run
+
+// Para subir cambios:0
+- git add .
+- git commit -m "mensaje"
+- git push
+
+// Para descargar cambios:
+- git pull
+
+// Para crear requirements del venv existente
+pip freeze > requirements.txt
