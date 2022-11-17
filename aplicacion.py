@@ -28,8 +28,147 @@ ESTADO_EN_PROGRESO = 'EN PROGRESO'
 ESTADO_FINALIZADO = 'FINALIZADO'
 
 
-ticket_list = []
-user_list = []
+ticket_list = [{
+    "id": 1,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 2,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 3,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 4,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 5,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 6,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 7,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 8,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 9,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 10,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 11,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 12,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 13,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}, {
+    "id": 14,
+    "area": AREA_FINANZAS,
+    "estado": ESTADO_EN_ESPERA,
+    "fecha": datetime.datetime.now(),
+    "nombre": "test",
+    "apellido": "test",
+    "email": "email@email.com",
+    "descripcion": "descripcion",
+    "devolucion": "devolucion"
+}]
 
 @app.get("/")
 def index():
@@ -69,8 +208,30 @@ def ticket_detail(id):
         if ticket["id"] == id:
             ticket_encontrado = ticket
             break
-    return render_template("/tickets/ticket_detail.html", ticket=ticket_encontrado)
+    return render_template("/tickets/ticket_detail.html", tickets=ticket_list, ticket_encontrado=ticket_encontrado)
 
+
+@app.post("/admin/tickets/<int:id>/close")
+def ticket_closed(id):    
+    ticket_encontrado = None
+    for ticket in ticket_list:
+       if ticket["id"] == id:
+           ticket_encontrado = ticket
+           ticket_encontrado["estado"]=ESTADO_FINALIZADO
+           break
+    return redirect("/admin/tickets")
+    
+
+@app.post("/admin/tickets/<int:id>")
+def ticket_edit(id):    
+    ticket_encontrado = None
+    for ticket in ticket_list:
+       if ticket["id"] == id:
+           ticket_encontrado = ticket
+           ticket_encontrado["estado"]=request.form["estado"]
+           ticket_encontrado["devolucion"]=request.form["devolucion"]
+           break
+    return redirect("/admin/tickets")
 
 # cerrar ticket
 # @app.post("/admin/tickets/<int:id>/close")

@@ -26,6 +26,7 @@
               <th>Area</th>
               <th>Descripcion</th>
               <th>Estado</th>
+              <th>Cerrar</th>
               <th>Devolución</th>
               <th></th>
             </tr>
@@ -37,15 +38,15 @@
               <td>{{ ticket.fecha }}</td>
               <td>{{ ticket.area }}</td>
               <td>{{ ticket.descripcion }}</td>
+              <td>{{ ticket.estado }}</td>
               <td>
-                {{ ticket.estado }}
-                <!-- <form action="/admin/tickets/{{ticket.id}}/close" method="post">
+                <form action="/admin/tickets/{{ticket.id}}/close" method="post">
                   <button type="submit">Cerrar</button>
-                </form> -->
+                </form>
               </td>
               <td>{{ ticket.devolucion }}</td>
               <td>
-                <a href="/admin/tickets/{{ticket.id}}">Detalle</a>
+                <a href="/admin/tickets/{{ticket.id}}#formulario">Detalle</a>
               </td>
             </tr>
             {% endfor %}
