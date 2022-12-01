@@ -43,3 +43,7 @@ flask --app (nombrearchivo) --debug run
 
 // Para crear requirements del venv existente
 pip freeze > requirements.txt
+
+
+// Para levantar un mysql con docker:
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=admin1234 -p 3306:3306 -d mysql
