@@ -6,6 +6,17 @@ from flask import redirect
 
 import random
 
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="admin1234",
+  database="facu"
+)
+
+mycursor = mydb.cursor()
+
 app = Flask(__name__)
 
 # el orden importa!
@@ -27,6 +38,23 @@ ESTADO_EN_ESPERA = 'EN ESPERA'
 ESTADO_EN_PROGRESO = 'EN PROGRESO'
 ESTADO_FINALIZADO = 'FINALIZADO'
 
+def get_all_tickets(conn):
+    # codigo para select tickets
+    return
+
+def get_ticket(conn, id):
+    # codigo
+    return
+
+def create_ticket(mydb, ticket):
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO tickets (area, estado, fecha, nombre, apellido, email, descripcion, devolucion) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (ticket["area"], ticket["estado"], ticket["fecha"], ticket["nombre"], ticket["apellido"], ticket["email"], ticket["descripcion"], ticket["devolucion"])
+    mycursor.execute(sql, val)
+
+    mydb.commit()
+
+    print(mycursor.rowcount, "record inserted.")
 
 ticket_list = [{
     "id": 1,
@@ -187,7 +215,8 @@ def ticket_new():
         'estado': ESTADO_EN_ESPERA,
         'devolucion': ''
     }
-    ticket_list.append(nuevo_ticket)
+    # ticket_list.append(nuevo_ticket)
+    create_ticket(mydb, nuevo_ticket)
     return f'''
             <h1>El ticket se ha creado correctamente</h1>
             <p>Ticket Nro: {str(nuevo_ticket["id"])}</p>
